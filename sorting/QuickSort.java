@@ -57,7 +57,7 @@ public class QuickSort {
 			while(i<j && less(flagComparable, a[j])) j--;
 			exch(a, i, j);
 		}
-		exch(a, right, i);
+		exch(a, right, i+1);
 		return i;
 	}
 	private static boolean less(Comparable v, Comparable w) {

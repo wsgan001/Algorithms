@@ -54,6 +54,14 @@ public class Insertion {
 			}
 		}
 	}
+	public static void sort(String[] a, int lo, int hi, int d) {
+		if(a == null || a.length <= 1 || (lo+1) >= hi) return;
+		for(int i = lo+1; i<= hi; i++) {
+			for(int j = i; j> 0 && less(a[j].charAt(d), a[j-1].charAt(d)); j--){
+				exch(a, j, j-1);
+			}
+		}
+	}
 	private static boolean less(Comparable v, Comparable w) {
 		return (v.compareTo(w)<0);
 	}

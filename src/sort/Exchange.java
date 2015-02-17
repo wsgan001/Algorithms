@@ -75,6 +75,33 @@ public class Exchange {
         if (less(A, r, i)) swap(A, i, r);
         return i;
     }
+
+    /**
+     * three way quick sort
+     * @param A
+     */
+    public static void threeWayQuickSort(Comparable[] A) {
+        if (A == null || A.length <= 1) return;
+        threeWayQuickSort(A, 0, A.length-1);
+    }
+    private static void threeWayQuickSort(Comparable[] A, int l, int r){
+        if (l >= r) return;
+        int lt = l, gt = r-1, i = l;
+        while (i <= gt) {
+            if (A[i].compareTo(A[r]) < 0) {
+                i ++;
+                lt++;
+            } else if (A[i].compareTo(A[r]) == 0) {
+                i ++;
+            } else {
+                swap(A, i, gt);
+                gt --;
+            }
+        }
+        swap(A, i, r);
+        threeWayQuickSort(A, l, i-1);
+        threeWayQuickSort(A, i+1, r);
+    }
     public static void main (String[] args) {
         Integer[] A = {1,2,3,4,5,6,7};
         Integer[] B = {7,6,5,4,3,2,1};
@@ -88,13 +115,21 @@ public class Exchange {
 //        System.out.println(Exchange.isSorted(C));
 //        Exchange.bubbleSort(D);
 //        System.out.println(Exchange.isSorted(D));
-        Exchange.quickSort(A);
+//        Exchange.quickSort(A);
+//        System.out.println(Exchange.isSorted(A));
+//        Exchange.quickSort(B);
+//        System.out.println(Exchange.isSorted(B));
+//        Exchange.quickSort(C);
+//        System.out.println(Exchange.isSorted(C));
+//        Exchange.quickSort(D);
+//        System.out.println(Exchange.isSorted(D));
+        Exchange.threeWayQuickSort(A);
         System.out.println(Exchange.isSorted(A));
-        Exchange.quickSort(B);
+        Exchange.threeWayQuickSort(B);
         System.out.println(Exchange.isSorted(B));
-        Exchange.quickSort(C);
+        Exchange.threeWayQuickSort(C);
         System.out.println(Exchange.isSorted(C));
-        Exchange.quickSort(D);
+        Exchange.threeWayQuickSort(D);
         System.out.println(Exchange.isSorted(D));
     }
 }

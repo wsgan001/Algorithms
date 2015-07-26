@@ -56,7 +56,10 @@ public class Huffman {
 		getEncodes(root.right, s+"1", encodes);
 	}
 	private String writeTrie(Node root) {
-		
+		if (root.isLeaf) {
+			return "1" + root.ch.toBinary();
+		}
+		return "0" + writeTrie(root.left) + writeTrie(root.right);
 	}
 	public String compress(String text) {
 		if (text == null || text.length() == 0) return "";
@@ -65,9 +68,27 @@ public class Huffman {
 		Node root = buildTrie(symbols);
 		// get encoded table
 		HashMap<Character, String> encodes = getEncodes(Node root);
-
+		StringBuilder sb = new StringBuilder();
+		sb.append(writeTrie(root));
+		for (int i = 0; i < text.length(); i++) {
+			sb.append(encodes.get(text.charAt(i)));
+		}
+		return sb.toString();
 	}
 	public String extend(String code) {
-
+		Node root = readTrie();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < code.length(); i++) {
+			Node x = root;
+			while (!x.isLeaf) {
+				if (code.charAt(i) == '0') {
+					x = x.left;
+				} else {
+					x = x.right;
+				}
+			}
+			sb.append(x.ch);
+		}
+		return sb.toString();
 	}
 }
